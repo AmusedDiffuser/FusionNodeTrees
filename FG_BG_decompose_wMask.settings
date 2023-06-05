@@ -1,0 +1,114 @@
+{
+Tools = ordered() {
+    MediaIn1 = MediaIn {
+        Inputs = {
+            Clip = "C:\\Users\\User\\Videos\\Source.mp4"
+        }
+    },
+    MagicMask1 = MagicMask {
+        CtrlWZoom = false,
+        Inputs = {
+            Input = Input { SourceOp = "MediaIn1", Source = "Output" },
+            MaskType = Input { Value = FuID { "Object" }, },
+            BrushSize = Input { Value = 0.05 },
+            BrushHardness = Input { Value = 0.5 },
+            BrushOpacity = Input { Value = 1 },
+            BrushColor = Input { Value = { Red = 0, Green = 1, Blue = 0 } },
+            BrushMode = Input { Value = FuID { "Add" }, },
+            ObjectID = Input { Value = 1 },
+            TrackingMode = Input { Value = FuID { "Point" }, },
+            StabilizeMode = Input { Value = FuID { "None" }, },
+        }
+    },
+    Saver1 = Saver {
+        Inputs = {
+            ClipnameSingleFormatIndex = Input { Value = 2 },
+            ClipnameSingleFormatString1 = Input { Value = "C:\\Users\\User\\Pictures\\Masked" },
+            ClipnameSingleFormatString2 = Input { Value = ".png" },
+            FormatIDInput =
+                Input {
+                    Value =
+                        FuID {
+                            "PNGFormat"
+                        }
+                }
+        }
+    },
+    Saver2 = Saver {
+        Inputs = {
+            ClipnameSingleFormatIndex =
+                Input {
+                    Value =
+                        2
+                }
+            ,
+            ClipnameSingleFormatString1 =
+                Input {
+                    Value =
+                        "C:\\Users\\User\\Pictures\\Unmasked"
+                }
+            ,
+            ClipnameSingleFormatString2 =
+                Input {
+                    Value =
+                        ".png"
+                }
+            ,
+            FormatIDInput =
+                Input {
+                    Value =
+                        FuID {
+                            "PNGFormat"
+                        }
+                }
+        }
+    },
+    MediaOut3= MediaOut {},
+    MediaOut4= MediaOut {},
+    Merge3= Merge {
+        Inputs= {
+            Background= Input { SourceOp= "MediaIn3", Source= "Output" },
+            Foreground= Input { SourceOp= "MediaIn1", Source= "Output" },
+            EffectMask= Input { SourceOp= "MagicMask1", Source= "Output" },
+            BackgroundAlpha= Input {Value= 0.5}
+        }
+    },
+    Merge4= Merge {
+        Inputs= {
+            Background= Input { SourceOp= "MediaIn4", Source= "Output" },
+            Foreground= Input { SourceOp= "MediaIn1", Source= "Output" },
+            EffectMask= Input { SourceOp= "MagicMask1", Source= "Output" },
+            BackgroundAlpha= Input {Value= 0.5}
+    },
+    MediaIn3= MediaIn {
+        Inputs= {
+            Clip= Input { SourceOp= "Saver1", Source= "ClipnameSingleFormatString1" }
+        }
+    },
+    MediaIn4= MediaIn {
+        Inputs= {
+            Clip= Input { SourceOp= "Saver2", Source= "ClipnameSingleFormatString1" }
+        }
+    },
+    Bitmap1= Bitmap {
+        Inputs= {
+            Input= Input { SourceOp= "MagicMask1", Source= "Output" }
+        }
+    },
+    Saver3= Saver {
+        Inputs = {
+            ClipnameSingleFormatIndex = Input { Value = 2 },
+            ClipnameSingleFormatString1 = Input { Value = "C:\\Users\\User\\Pictures\\Mask" },
+            ClipnameSingleFormatString2 = Input { Value = ".png" },
+            FormatIDInput =
+                Input {
+                    Value =
+                        FuID {
+                            "PNGFormat"
+                        }
+                }
+        }
+    }
+}
+ActiveTool="MediaOut3"
+}
